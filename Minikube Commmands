@@ -1,0 +1,73 @@
+Advanced Minikube Features (2)
+Most minikube commands, such as start, stop, node, etc. are profile aware, meaning that the user is required to explicitly specify the target cluster of the command, through its profile name. The default minikube cluster, however, can be managed implicitly without specifying its profile name. Stopping and re-starting the two clusters listed above, the minibox cluster (explicitly) and the default minikube cluster (implicitly):
+
+$ minikube stop -p minibox
+
+$ minikube start -p minibox
+
+$ minikube stop
+
+$ minikube start
+
+Additional helpful minikube commands:
+
+To display the version of the current Minikube installation:
+
+$ minikube version
+
+minikube version: v1.32.0
+commit: 8220a6eb95f0a4d75f7f2d7b14cef975f050512d
+
+Completion is a helpful post installation configuration to enable the minikube command to respond to typical auto-completion mechanisms, such as completing a command in the terminal by pressing the TAB key. To enable completion for the bash shell on Ubuntu:
+
+$ sudo apt install bash-completion
+
+$ source /etc/bash_completion
+
+$ source <(minikube completion bash)
+
+If needed, also run the following command:
+
+$ minikube completion bash
+
+A command that allows users to list the nodes of a cluster, add new control plane or worker nodes, delete existing cluster nodes, start or stop individual nodes of a cluster:
+
+$ minikube node list
+
+minikube 192.168.59.100
+
+$ minikube node list -p minibox
+
+minibox   192.168.59.101
+minibox-m02   192.168.59.102
+minibox-m03   192.168.59.103
+
+To display the cluster control plane node's IP address, or another node's IP with the --node or -n flags:
+
+$ minikube ip
+
+192.168.59.100
+
+$ minikube -p minibox ip
+
+192.168.59.101
+
+$ minikube -p minibox ip -n minibox-m02
+
+192.168.59.102
+
+When a cluster configuration is no longer of use, the cluster's profile can be deleted. It is also a profile aware command - it deletes the default minikube cluster if no profile is specified, or a custom cluster if its profile is specified:
+
+$ minikube delete
+
+🔥  Deleting "minikube" in virtualbox ...
+💀  Removed all traces of the "minikube" cluster.
+
+$ minikube delete -p minibox
+
+🔥  Deleting "minibox" in virtualbox ...
+🔥  Deleting "minibox-m02" in virtualbox ...
+🔥  Deleting "minibox-m03" in virtualbox ...
+💀  Removed all traces of the "minibox" cluster.
+
+For additional commands and usage options please visit the Minikube command line reference. 
